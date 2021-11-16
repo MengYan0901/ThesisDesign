@@ -8,7 +8,9 @@ import SignUp from '../views/SignUp.vue'
 import User from '../views/User.vue'
 import Admin from '../views/Admin.vue'
 import Search from '../views/Search.vue'
-
+import Tip from '../views/Tip.vue'
+import Ticket from '../views/Ticket.vue'
+import ShowTicket from '../views/ShowTicket.vue'
 
 Vue.use(VueRouter)
 
@@ -53,6 +55,21 @@ const routes = [
     name: 'Search',
     component: Search
   },
+  {
+    path: '/tip',
+    name: 'Tip',
+    component: Tip,
+  },
+  {
+    path: '/ticket',
+    name: 'Ticket',
+    component: Ticket,
+  },
+  {
+    path: '/ticket/showticket',
+    name: 'ShowTicket',
+    component: ShowTicket,
+  }
 ]
 
 const router = new VueRouter({

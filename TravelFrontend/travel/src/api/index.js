@@ -5,6 +5,8 @@ import admin from './admin'
 import user from './user'
 import country from './country'
 import site from './site'
+import tip from './tip'
+import ticket from './ticket'
 
 const api={
     register,
@@ -13,7 +15,9 @@ const api={
     admin,
     user,
     country,
-    site
+    site,
+    tip,
+    ticket,
 }
 
 export default api
