@@ -23,6 +23,17 @@
           <span class="mr-2">Site</span>
         </v-btn>
       </router-link>
+      <router-link to="/tip">
+        <v-btn text>
+          <span class="mr-2">Tip</span>
+        </v-btn>
+      </router-link>
+      <router-link to="/ticket">
+        <v-btn text>
+          <span class="mr-2">Ticket</span>
+        </v-btn>
+      </router-link>
+      
 
       <v-spacer></v-spacer>
 
