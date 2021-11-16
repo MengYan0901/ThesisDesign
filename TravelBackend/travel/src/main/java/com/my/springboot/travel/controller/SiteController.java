@@ -1,6 +1,7 @@
 package com.my.springboot.travel.controller;
 
 
+import com.my.springboot.travel.dao.SiteDao;
 import com.my.springboot.travel.entity.Site;
 import com.my.springboot.travel.model.CountryDTO;
 import com.my.springboot.travel.model.SiteDTO;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -21,19 +23,34 @@ public class SiteController {
     @Autowired
     private SiteService siteService;
 
+    @Autowired
+    private SiteDao siteDao;
+
     @GetMapping("/site/list")
-    public ResponseEntity<?> showCountryList(){
+    public ResponseEntity<?> showCountryList() {
         List<Site> siteList = siteService.findAll();
         List<SiteDTO> siteDTOList = new ArrayList<>();
         for (int i = 0; i < siteList.size(); i++) {
-            SiteDTO siteDTO=new SiteDTO();
-            siteDTO.setSiteId(siteList.get(i).getSiteId());
-            siteDTO.setSiteName(siteList.get(i).getSiteName());
-            siteDTO.setSiteAddress(siteList.get(i).getSiteAddress());
-            siteDTO.setSitePhoto(siteList.get(i).getSitePhoto());
-            siteDTOList.add(siteDTO);
+            siteDTOList.add(siteList.get(i).toSiteDTO());
         }
         return ResponseEntity.ok(siteDTOList);
+    }
 
+    @GetMapping("/site/getsitelike/{siteName}")
+    public ResponseEntity<?> getSite(@PathVariable String siteName) {
+        List<Site> siteList = siteService.findBySiteNameLike(siteName);
+        List<SiteDTO> siteDTOList = new ArrayList<>();
+        if (siteList.size() == 0) {
+            return ResponseEntity.ok(0);
+        } else {
+            if (siteList.size() > 0) {
+                for (int i = 0; i < siteList.size(); i++) {
+                    SiteDTO siteDTO = siteList.get(i).toSiteDTO();
+                    siteDTO.setCode(1);
+                    siteDTOList.add(siteDTO);
+                }
+            }
+        }
+        return ResponseEntity.ok(siteDTOList);
     }
 }

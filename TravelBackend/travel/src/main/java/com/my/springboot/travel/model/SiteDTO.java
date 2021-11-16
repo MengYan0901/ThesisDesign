@@ -19,5 +19,6 @@ public class SiteDTO implements Serializable {
     private String siteName;
     private String siteAddress;
     private String sitePhoto;
+    private int code = 0;
 
 }
