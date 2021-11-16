@@ -14,7 +14,7 @@ public class CountryService {
     @Autowired
     private CountryDao countryDao;
 
-    public List<Country> findByCountryName(String CountryName) {
+    public List<Country> findByCountryNameLike(String CountryName) {
 
         return countryDao.findByCountryNameLike("%"+CountryName+"%");
 

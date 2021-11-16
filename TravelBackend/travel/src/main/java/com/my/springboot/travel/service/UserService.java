@@ -15,14 +15,15 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
-    public DAOUser updateUser(UserDTO user) {
+    public UserDTO updateUser(UserDTO user) {
         DAOUser newUser = userDao.findByUserName(user.getUserName());
         newUser.setUserName(user.getUserName());
         newUser.setUserEmail(user.getUserEmail());
         newUser.setUserAddress(user.getUserAddress());
         newUser.setUserFavorite(user.getUserFavorite());
         newUser.setUserAdmin(user.getUserAdmin());
-        return userDao.save(newUser);
+        userDao.save(newUser);
+        return newUser.toUserDTO();
     }
 
     public void deleteUser(int userId) {
@@ -31,6 +32,14 @@ public class UserService {
 
     public List<DAOUser> findAll() {
         return userDao.findAll();
+    }
+
+    public DAOUser findByUserName(String userName){
+        return userDao.findByUserName(userName);
+    }
+
+    public List<DAOUser> findByUserNameLike(String userName){
+        return userDao.findByUserNameLike("%"+userName+"%");
     }
 
 }

@@ -14,7 +14,7 @@ public class SiteService {
     @Autowired
     private SiteDao siteDao;
 
-    public List<Site> findBySiteName(String SiteName) {
+    public List<Site> findBySiteNameLike(String SiteName) {
 
         return siteDao.findBySiteNameLike("%"+SiteName+"%");
 

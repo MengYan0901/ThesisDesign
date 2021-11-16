@@ -19,5 +19,6 @@ public class CountryDTO implements Serializable {
     private String countryAddress;
     private String countryCulture;
     private String countryPhoto;
+    private int code;
 
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,8 +19,12 @@ public class AdminController {
 
     @GetMapping("/admin/list")
     public ResponseEntity<?> showUserList(){
-        List<DAOUser> user = userService.findAll();
-        return ResponseEntity.ok(user);
+        List<DAOUser> userList = userService.findAll();
+        List<UserDTO> userDTOList = new ArrayList<>();
+        for (int i = 0; i < userList.size(); i++) {
+            userDTOList.add(userList.get(i).toUserDTO());
+        }
+        return ResponseEntity.ok(userDTOList);
 
     }
 
