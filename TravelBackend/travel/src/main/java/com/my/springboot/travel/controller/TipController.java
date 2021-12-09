@@ -2,6 +2,7 @@ package com.my.springboot.travel.controller;
 
 import com.my.springboot.travel.entity.Tip;
 import com.my.springboot.travel.model.TipDTO;
+import com.my.springboot.travel.model.UserDTO;
 import com.my.springboot.travel.service.CountryService;
 import com.my.springboot.travel.service.SiteService;
 import com.my.springboot.travel.service.TipService;

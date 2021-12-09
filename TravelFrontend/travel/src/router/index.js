@@ -69,6 +69,7 @@ const routes = [
     path: '/ticket/showticket',
     name: 'ShowTicket',
     component: ShowTicket,
+    props: true
   }
 ]
 
