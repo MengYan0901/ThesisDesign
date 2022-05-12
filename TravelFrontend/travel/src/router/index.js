@@ -11,6 +11,8 @@ import Search from '../views/Search.vue'
 import Tip from '../views/Tip.vue'
 import Ticket from '../views/Ticket.vue'
 import ShowTicket from '../views/ShowTicket.vue'
+import Route from '../views/Route.vue'
+import Comment from '../views/Comment.vue'
 
 Vue.use(VueRouter)
 
@@ -51,9 +53,10 @@ const routes = [
     component: Admin
   },
   {
-    path: '/search',
+    path: '/search/:query',
     name: 'Search',
-    component: Search
+    component: Search,
+    props: true
   },
   {
     path: '/tip',
@@ -61,16 +64,28 @@ const routes = [
     component: Tip,
   },
   {
+    path: '/ticket/showticket',
+    name: 'ShowTicket',
+    component: ShowTicket,
+    props: true
+  },
+  {
     path: '/ticket',
     name: 'Ticket',
     component: Ticket,
   },
   {
-    path: '/ticket/showticket',
-    name: 'ShowTicket',
-    component: ShowTicket,
+    path: '/route',
+    name: 'Route',
+    component: Route,
+  },
+  {
+    path: '/comment/:query',
+    name: 'Comment',
+    component: Comment,
     props: true
   }
+
 ]
 
 const router = new VueRouter({

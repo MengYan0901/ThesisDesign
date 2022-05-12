@@ -7,6 +7,10 @@ import country from './country'
 import site from './site'
 import tip from './tip'
 import ticket from './ticket'
+import like from './like'
+import comment from './comment'
+import city from './city'
+import route from './route'
 
 const api={
     register,
@@ -18,6 +22,10 @@ const api={
     site,
     tip,
     ticket,
+    like,
+    comment,
+    city,
+    route
 }
 
 export default api

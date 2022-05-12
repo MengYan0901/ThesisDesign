@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 @Service
 public class CountryService {
@@ -16,11 +17,23 @@ public class CountryService {
 
     public List<Country> findByCountryNameLike(String CountryName) {
 
-        return countryDao.findByCountryNameLike("%"+CountryName+"%");
+        return countryDao.findByCountryNameLike("%" + CountryName + "%");
+
+    }
+
+    public Country findByCountryName(String CountryName) {
+
+        return countryDao.findByCountryName(CountryName);
 
     }
 
     public List<Country> findAll() {
+
         return countryDao.findAll();
     }
+
+    public Country findByCountryId(int countryId){
+        return countryDao.findByCountryId(countryId);
+    }
+
 }

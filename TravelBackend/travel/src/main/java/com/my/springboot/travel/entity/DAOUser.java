@@ -40,6 +40,12 @@ public class DAOUser implements Serializable {
     @OneToMany(mappedBy = "user")
     private List<Tip> tip;
 
+    @OneToMany(mappedBy = "user")
+    private List<Like> like;
+
+    @OneToMany(mappedBy = "user")
+    private List<DAOComment> comment;
+
     public UserDTO toUserDTO(){
         UserDTO userDTO = new UserDTO();
         userDTO.setUserId(this.getUserId());

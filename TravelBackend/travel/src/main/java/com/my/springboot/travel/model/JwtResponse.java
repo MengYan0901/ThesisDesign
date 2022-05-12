@@ -14,4 +14,6 @@ public class JwtResponse implements Serializable {
     private final String jwttoken;
     private String userEmail;
     private int admin;
+    private int userId;
+    private String userName;
 }

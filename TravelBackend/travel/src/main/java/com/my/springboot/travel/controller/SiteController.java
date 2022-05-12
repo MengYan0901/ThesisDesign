@@ -2,6 +2,7 @@ package com.my.springboot.travel.controller;
 
 
 import com.my.springboot.travel.dao.SiteDao;
+import com.my.springboot.travel.entity.Country;
 import com.my.springboot.travel.entity.Site;
 import com.my.springboot.travel.model.CountryDTO;
 import com.my.springboot.travel.model.SiteDTO;
@@ -36,6 +37,16 @@ public class SiteController {
         return ResponseEntity.ok(siteDTOList);
     }
 
+    @GetMapping("/site/list/sitename")
+    public ResponseEntity<?> showSiteNameList() {
+        List<Site> siteList = siteService.findAll();
+        List<String> siteNameList = new ArrayList<>();
+        for(int i = 0; i < siteList.size(); i++){
+            siteNameList.add(siteList.get(i).getSiteName());
+        }
+        return ResponseEntity.ok(siteNameList);
+    }
+
     @GetMapping("/site/getsitelike/{siteName}")
     public ResponseEntity<?> getSite(@PathVariable String siteName) {
         List<Site> siteList = siteService.findBySiteNameLike(siteName);
@@ -52,5 +63,21 @@ public class SiteController {
             }
         }
         return ResponseEntity.ok(siteDTOList);
+    }
+
+    @GetMapping("/site/getsiteid/{siteName}")
+    public ResponseEntity<?> getSiteIdBySiteName(@PathVariable String siteName) {
+        Site newSite = siteService.findBySiteName(siteName);
+        SiteDTO siteDTO = newSite.toSiteDTO();
+        siteDTO.setCode(1);
+        return ResponseEntity.ok(newSite.getSiteId());
+    }
+
+    @GetMapping("/site/getsitename/{siteId}")
+    public ResponseEntity<?> getSiteNameBySiteId(@PathVariable int siteId) {
+        Site newSite = siteService.findBySiteId(siteId);
+        SiteDTO siteDTO = newSite.toSiteDTO();
+        siteDTO.setCode(1);
+        return ResponseEntity.ok(newSite.getSiteName());
     }
 }

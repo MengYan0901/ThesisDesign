@@ -8,5 +8,9 @@ import java.util.List;
 
 @Repository
 public interface SiteDao extends JpaRepository<Site,Integer> {
+
     List<Site> findBySiteNameLike(String siteName);
+    Site findBySiteId(int siteId);
+    Site findBySiteName(String siteName);
+
 }

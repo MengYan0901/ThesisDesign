@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Entity(name = "tip")
@@ -15,11 +16,8 @@ public class Tip implements Serializable {
     private Integer tipId;
 
     private String tipName;
-
     private String tipContent;
-
-    private String tipMark;
-
+    private Integer tipMark;
     private String tipPhoto;
 
     @ManyToOne
@@ -33,6 +31,16 @@ public class Tip implements Serializable {
     @ManyToOne
     @JoinColumn(name = "site_id")
     private Site site;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city;
+
+    @OneToMany(mappedBy = "tip")
+    private List<Like> like;
+
+    @OneToMany(mappedBy = "tip")
+    private List<DAOComment> DAOComment;
 
     public TipDTO toTipDTO (){
         TipDTO tipDTO = new TipDTO();

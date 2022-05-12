@@ -2,7 +2,7 @@ import axios from './axios'
 
 export default {
     showTipList() {
-        return axios.get('/tip/list/')
+        return axios.get('/tip/list')
     },
     addTip(options = {}) {
         return axios.post('/tip/add', options)

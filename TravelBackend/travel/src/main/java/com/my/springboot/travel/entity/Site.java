@@ -28,6 +28,9 @@ public class Site implements Serializable {
     @OneToMany(mappedBy = "site")
     private List<Tip> tip;
 
+    @OneToMany(mappedBy = "site")
+    private List<Like> like;
+
     public SiteDTO toSiteDTO(){
         SiteDTO siteDTO = new SiteDTO();
         siteDTO.setSiteId(this.getSiteId());

@@ -20,6 +20,10 @@ public class Country implements Serializable {
     @OneToMany(mappedBy = "country")
     private List<Tip> tip;
 
+    @OneToMany(mappedBy = "country")
+    private List<City> city;
+
+
     @Column
     private String countryName;
     private String countryAddress;

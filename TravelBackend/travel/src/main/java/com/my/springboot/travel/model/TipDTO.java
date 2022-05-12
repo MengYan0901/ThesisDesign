@@ -18,11 +18,12 @@ public class TipDTO implements Serializable {
     private int tipId;
     private String tipContent;
     private String tipName;
-    private String tipMark;
+    private int tipMark;
     private String tipPhoto;
     private int userId;
     private int countryId;
     private int siteId;
+    private int cityId;
     private int code = 0;
 
     public TipDTO(int code) {

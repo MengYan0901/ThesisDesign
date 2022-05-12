@@ -55,6 +55,9 @@
                     </v-row>
                     <v-row align="center"
                            justify="center">
+                        <v-icon>mdi-airplane-takeoff</v-icon>
+                        <v-icon>mdi-arrow-right</v-icon>
+                        <v-icon>mdi-airplane-landing</v-icon>
                         <v-col cols="12"
                                sm="6"
                                md="4">
@@ -122,6 +125,9 @@
                     </v-row>
                     <v-row align="center"
                            justify="center">
+                        <v-icon>mdi-airplane-takeoff</v-icon>
+                        <v-icon>mdi-arrow-left</v-icon>
+                        <v-icon>mdi-airplane-landing</v-icon>
                         <v-col cols="12"
                                sm="6"
                                md="4">
@@ -210,16 +216,19 @@
                         </v-col>
                     </v-row>
                 </form>
+                <loading v-if="isLoading"></loading>
             </v-card>
         </v-row>
     </div>
 </template>
 
 <script>
+import loading from '../components/loading/loading.vue'
 import axios from '../api/axios';
 import { required } from 'vuelidate/lib/validators'
 
 export default {
+    components: { loading },
     name: "Ticket.vue",
     validations: {
         originLocation: { required },
@@ -228,6 +237,7 @@ export default {
     },
     data: function () {
         return {
+            isLoading: false,
             styleObject: { border: '3px solid orange' },
             menu1: false,
             menu2: false,
@@ -257,6 +267,12 @@ export default {
             },
         };
     },
+    created: function () {
+        if (this.$cookies.get("token") != null) {
+            this.$store.commit('setuser', this.$cookies.get("token"));
+            axios.defaults.headers.Authorization = `Bearer ${this.$store.state.user}`;
+        };
+    },
     computed: {
         emptyErrors() {
             const errors = [];
@@ -273,6 +289,7 @@ export default {
             this.destinationLocation = this.location;
         },
         searchTicket() {
+            this.isLoading = true
             this.ticketData.originDestinations[0].originLocationCode = this.originLocation;
             this.ticketData.originDestinations[0].destinationLocationCode = this.destinationLocation;
             this.ticketData.originDestinations[1].originLocationCode = this.destinationLocation;
