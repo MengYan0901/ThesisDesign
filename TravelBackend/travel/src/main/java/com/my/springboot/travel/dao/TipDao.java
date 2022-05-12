@@ -10,6 +10,8 @@ import java.util.List;
 public interface TipDao extends JpaRepository<Tip,Integer> {
     Tip findByTipName(String tipName);
 
+    Tip findByTipId(int tipId);
+
     List<Tip> findByUserUserId(Integer userId);
 
     List<Tip> findByCountryCountryId(Integer countryId);

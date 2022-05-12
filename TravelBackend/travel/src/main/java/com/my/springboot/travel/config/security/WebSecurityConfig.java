@@ -54,15 +54,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable()
                 // dont authenticate this particular request
                 .authorizeRequests()
-                .antMatchers("/authenticate", "/register", "/user/*","/user/*/*","/images/*/*","/search/*","/admin/*/*","/admin/*","/country/*","/country/*/*","/site/*","/site/*/*","/tip/*","/tip/*/*","/tip/*/*/*","/ticket/*").permitAll().
+                .antMatchers("/authenticate", "/register", "/images/*/*", "/search/*", "/country/*", "/country/*/*", "/country/*/*", "/site/*", "/site/*/*", "/site/*/*", "/tip/*", "/tip/*/*", "/tip/*/*/*", "/ticket/*", "/route/*", "/city/*/*", "/user/*/*","/admin/*/*","/admin/*","/user/*").permitAll().
                 // all other requests need to be authenticated
                         anyRequest().authenticated().and().
                 // make sure we use stateless session; session won't be used to
                 // store user's state.
                         exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().cors();
 
         // Add a filter to validate the tokens with every request
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
 }

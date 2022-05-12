@@ -63,6 +63,10 @@ export default {
         };
     },
     created: function () {
+        if (this.$cookies.get("token") != null) {
+            this.$store.commit('setuser', this.$cookies.get("token"));
+            axios.defaults.headers.Authorization = `Bearer ${this.$store.state.user}`;
+        };
     },
     methods: {}
 };

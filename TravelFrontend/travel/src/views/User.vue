@@ -72,95 +72,147 @@
                     Update
                 </v-btn>
             </v-container>
-            <v-btn block
-                   class="my-3"
-                   @click="list"> List Your Tips </v-btn>
-            <table class="table table-bodered table-hover table-striped">
-                <thead>
-                    <tr>
-                        <th>tipId</th>
-                        <th>tipName</th>
-                        <th>tipContent</th>
-                        <th>tipMark</th>
-                        <th>tipPhoto</th>
-                        <th>siteName</th>
-                        <th>countryName</th>
-                        <th>Operation</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="item in tipList"
-                        :key="item.tipId">
-                        <td>{{ item.tipId }}</td>
-                        <td>{{ item.tipName }}</td>
-                        <td>{{ item.tipContent }}</td>
-                        <td>{{ item.tipMark }}</td>
-                        <td>{{ item.tipPhoto }}</td>
-                        <td>{{ item.siteName }}</td>
-                        <td>{{ item.countryName }}</td>
-                        <td>
-                            <v-btn @click="edit(item)">Edit</v-btn>
-                            <v-btn @click="deleteTip(item)">Delete</v-btn>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <v-row justify="center">
-                <v-dialog v-model="dialog"
-                          persistent
-                          max-width="600px">
-                    <v-card>
-                        <v-card-title>
-                            <span v-if="dialogEditMode"
-                                  class="headline">Edite Tip</span>
-                            <span v-else
-                                  class="headline">Add Tip</span>
-                        </v-card-title>
-                        <v-card-text>
-                            <v-container>
-                                <v-row>
-                                    <v-col cols="12">
-                                        <v-text-field label="TipId*"
-                                                      v-model="selectedTip.tipId"
-                                                      required></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12">
-                                        <v-text-field label="TipName*"
-                                                      v-model="selectedTip.tipName"
-                                                      required></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12">
-                                        <v-text-field label="TipContent*"
-                                                      v-model="selectedTip.tipContent"
-                                                      required></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12">
-                                        <v-text-field label="TipPhoto"
-                                                      v-model="selectedTip.tipPhoto"></v-text-field>
-                                    </v-col>
-                                </v-row>
-                            </v-container>
-                            <small>* indicates required field</small>
-                        </v-card-text>
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn color="blue darken-1"
-                                   text
-                                   @click="dialog = false">
-                                Close
-                            </v-btn>
-                            <v-btn color="blue darken-1"
-                                   text
-                                   @click="save">
-                                Save
-                            </v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-dialog>
-            </v-row>
-            <v-btn block
-                   class="my-3"
-                   @click="add"> Add Your Tips </v-btn>
+            <v-container>
+                <v-row>
+                    <v-col>
+                        <v-btn text
+                               block
+                               class="my-3"
+                               @click="list">
+                            <v-icon large>mdi-credit-card-outline</v-icon>
+                            Show Tips
+                        </v-btn>
+                    </v-col>
+                    <v-col>
+                        <v-btn text
+                               block
+                               class="my-3"
+                               @click="add">
+                            <v-icon large>mdi-credit-card-plus-outline</v-icon>
+                            add Tips
+                        </v-btn>
+                    </v-col>
+                </v-row>
+                <table class="table table-bodered table-hover table-striped"
+                       v-show=this.tableShow>
+                    <thead>
+                        <tr>
+                            <th>tipId</th>
+                            <th>tipName</th>
+                            <th>tipContent</th>
+                            <th>tipPhoto</th>
+                            <th>countryId</th>
+                            <th>cityId</th>
+                            <th>siteId</th>
+                            <th>Operation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in tipList"
+                            :key="item.tipId">
+                            <td>{{ item.tipId }}</td>
+                            <td>{{ item.tipName }}</td>
+                            <td>{{ item.tipContent }}</td>
+                            <td>{{ item.tipPhoto }}</td>
+                            <td>{{ item.countryId}}</td>
+                            <td>{{ item.cityId}}</td>
+                            <td>{{ item.siteId}}</td>
+
+                            <td>
+                                <v-btn text
+                                       @click="edit(item)">
+                                    <v-icon>mdi-credit-card-edit-outline</v-icon>
+                                </v-btn>
+                                <v-btn text
+                                       @click="deleteTip(item)">
+                                    <v-icon>mdi-credit-card-remove-outline</v-icon>
+                                </v-btn>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <v-row justify="center">
+                    <v-dialog v-model="dialog"
+                              persistent
+                              max-width="600px">
+                        <v-card>
+                            <v-card-title>
+                                <span v-if="dialogEditMode"
+                                      class="headline">Edite Tip</span>
+                                <span v-else
+                                      class="headline">Add Tip</span>
+                            </v-card-title>
+                            <v-card-text>
+                                <v-container>
+                                    <v-row>
+                                        <v-col cols="12">
+                                            <v-text-field label="UserId*"
+                                                          v-model="user.userId"
+                                                          required
+                                                          disabled></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12">
+                                            <v-text-field label="TipName*"
+                                                          v-model="selectedTip.tipName"
+                                                          required></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12">
+                                            <v-text-field label="TipContent*"
+                                                          v-model="selectedTip.tipContent"
+                                                          required></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12">
+                                            <v-autocomplete v-model="countryName"
+                                                            :items="countryItems"
+                                                            outlined
+                                                            dense
+                                                            chips
+                                                            small-chips
+                                                            label="CountryId*"></v-autocomplete>
+                                        </v-col>
+                                        <v-col cols="12">
+                                            <v-autocomplete v-model="cityName"
+                                                            :items="cityItems"
+                                                            outlined
+                                                            dense
+                                                            chips
+                                                            small-chips
+                                                            label="CityId*"></v-autocomplete>
+                                        </v-col>
+                                        <v-col cols="12">
+                                            <v-autocomplete v-model="siteName"
+                                                            :items="siteItems"
+                                                            outlined
+                                                            dense
+                                                            chips
+                                                            small-chips
+                                                            label="SiteId*"></v-autocomplete>
+                                        </v-col>
+                                        <v-col cols="12">
+                                            <v-text-field label="TipPhoto"
+                                                          v-model="selectedTip.tipPhoto"></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                </v-container>
+                                <small>* indicates required field</small>
+                            </v-card-text>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="blue darken-1"
+                                       text
+                                       @click="close()">
+                                    Close
+                                </v-btn>
+                                <v-btn color="blue darken-1"
+                                       text
+                                       @click="save()">
+                                    Save
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                </v-row>
+            </v-container>
         </v-container>
     </div>
 </template>
@@ -173,11 +225,23 @@ export default {
         initials: "XX",
         tipList: [],
         selectedTip: {},
-        id: 1,
         dialog: false,
         dialogEditMode: false,
+        tableShow: false,
+        countryItems: [],
+        cityItems: [],
+        siteItems: [],
+        countryName: "Hungary",
+        cityName: "Budapest",
+        siteName: "Hungarian Parliament Building",
+        countryId: 1,
+        cityId: 1,
+        siteId: 1,
+
+
     }),
     created: function () {
+        this.user.userId = this.$cookies.get("userId");
         let username = this.$cookies.get("userName");
         this.user.userEmail = this.$cookies.get("userEmail");
         this.user.userAddress = this.$cookies.get("userAddress");
@@ -188,7 +252,15 @@ export default {
         } else {
             this.initials = username.slice(0, 2);
             this.user.userName = username;
-        }
+        };
+        console.log(this.user);
+        this.showCountryNameList();
+        this.showCityNameList();
+        this.showSiteNameList();
+        if (this.$cookies.get("token") != null) {
+            this.$store.commit('setuser', this.$cookies.get("token"));
+            axios.defaults.headers.Authorization = `Bearer ${this.$store.state.user}`;
+        };
     },
     methods: {
         updateUser() {
@@ -198,46 +270,54 @@ export default {
             });
         },
         list() {
-            this.$api.user.showUser(this.user.userName).then(res => {
-                console.log(res.data.userId);
-                this.user.userId = res.data.userId;
-                this.$api.tip.searchTipByUserId(this.user.userId).then(res => {
-                    console.log(res.data);
-                    this.tipList = res.data;
-                });
-            })
+            this.tableShow = true;
+            this.$api.tip.searchTipByUserId(this.user.userId).then(res => {
+                console.log(res.data);
+                this.tipList = res.data;
+            });
         },
-        edit(item) {
+        async edit(item) {
             this.dialog = !this.dialog;
             this.dialogEditMode = true;
             this.selectedTip = Object.assign({}, item);
+            await this.showCountryName(this.selectedTip.countryId);
+            await this.showCityName(this.selectedTip.cityId);
+            await this.showSiteName(this.selectedTip.siteId);
         },
         close() {
-            this.dialog = false;
             this.selectedTip = {};
+            this.dialog = false;
         },
-        save() {
+        async save() {
+            this.selectedTip.userId = this.user.userId;
             if (this.dialogEditMode) {
-                this.$api.tip.updateTip(this.selectedTip).then(res => {
-                    console.log(res);
-                    this.$api.tip.searchTipByUserId(this.user.userId).then(res => {
-                        console.log(res.data);
-                        this.tipList = res.data;
-                    });
-                });
+                await this.showCountryId();
+                await this.showCityId();
+                await this.showSiteId();
+                this.selectedTip.countryId = this.countryId;
+                this.selectedTip.cityId = this.cityId;
+                this.selectedTip.siteId = this.siteId;
+                let response1 = await this.$api.tip.updateTip(this.selectedTip);
+                let response2 = await this.$api.tip.searchTipByUserId(this.user.userId);
+                this.tipList = response2.data;
             }
             else {
-                this.selectedTip.userId = this.user.userId;
-                this.$api.tip.addTip(this.selectedTip).then(res => {
-                    console.log(res);
-                });
+                await this.showCountryId();
+                await this.showCityId();
+                await this.showSiteId();
+                this.selectedTip.countryId = this.countryId;
+                this.selectedTip.cityId = this.cityId;
+                this.selectedTip.siteId = this.siteId;
+                console.log(this.selectedTip);
+                await this.$api.tip.addTip(this.selectedTip);
+                let response2 = await this.$api.tip.searchTipByUserId(this.user.userId);
+                this.tipList = response2.data;
             }
-            this.dialog = false;
             this.selectedTip = {};
+            this.dialog = false;
         },
         deleteTip(item) {
-            this.id = item.tipId;
-            this.$api.tip.deleteTip(this.id).then(res => {
+            this.$api.tip.deleteTip(item.tipId).then(res => {
                 console.log(res);
                 window.alert("Delete the Tip successfully!");
                 this.$api.tip.searchTipByUserId(this.user.userId).then(res => {
@@ -250,7 +330,45 @@ export default {
             this.dialog = true;
             this.dialogEditMode = false;
         },
-
+        showCountryNameList() {
+            this.$api.country.showCountryNameList().then(res => {
+                this.countryItems = res.data;
+            })
+        },
+        showCityNameList() {
+            this.$api.city.showCityNameList().then(res => {
+                this.cityItems = res.data;
+            })
+        },
+        showSiteNameList() {
+            this.$api.site.showSiteNameList().then(res => {
+                this.siteItems = res.data;
+            })
+        },
+        async showCountryId() {
+            let response = await this.$api.country.showCountryIdByCountryName(this.countryName);
+            this.countryId = response.data;
+        },
+        async showCityId() {
+            let response = await this.$api.city.showCityIdByCityName(this.cityName);
+            this.cityId = response.data;
+        },
+        async showSiteId() {
+            let response = await this.$api.site.showSiteIdBySiteName(this.siteName);
+            this.siteId = response.data;
+        },
+        async showCountryName(countryId) {
+            let response = await this.$api.country.showCountryNameByCountryId(countryId);
+            this.countryName = response.data;
+        },
+        async showCityName(cityId) {
+            let response = await this.$api.city.showCityNameByCityId(cityId);
+            this.cityName = response.data;
+        },
+        async showSiteName(siteId) {
+            let response = await this.$api.site.showSiteNameBySiteId(siteId);
+            this.siteName = response.data;
+        },
 
     }
 };

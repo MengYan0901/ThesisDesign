@@ -10,24 +10,24 @@
                     <v-card-text>
                         <div length="150px">
                             <v-text-field label="User"
-                                        hide-details
-                                        prepend-inner-icon="mdi-magnify"
-                                        single-line
-                                        @keyup.enter="userSearchEnter"></v-text-field>
+                                          hide-details
+                                          prepend-inner-icon="mdi-magnify"
+                                          single-line
+                                          @keyup.enter="userSearchEnter"></v-text-field>
                         </div>
                         <div length="150px">
                             <v-text-field label="Country"
-                                        hide-details
-                                        prepend-inner-icon="mdi-magnify"
-                                        single-line
-                                        @keyup.enter="countrySearchEnter"></v-text-field>
+                                          hide-details
+                                          prepend-inner-icon="mdi-magnify"
+                                          single-line
+                                          @keyup.enter="countrySearchEnter"></v-text-field>
                         </div>
                         <div length="150px">
                             <v-text-field label="Site"
-                                        hide-details
-                                        prepend-inner-icon="mdi-magnify"
-                                        single-line
-                                        @keyup.enter="siteSearchEnter"></v-text-field>
+                                          hide-details
+                                          prepend-inner-icon="mdi-magnify"
+                                          single-line
+                                          @keyup.enter="siteSearchEnter"></v-text-field>
                         </div>
                     </v-card-text>
                 </v-card>
@@ -54,36 +54,35 @@ export default {
         };
     },
     created: function () {
+        if (this.$cookies.get("token") != null) {
+            this.$store.commit('setuser', this.$cookies.get("token"));
+            axios.defaults.headers.Authorization = `Bearer ${this.$store.state.user}`;
+        };
     },
     methods: {
-        userSearchEnter: function (e) {
-            console.log("回车搜索", e);
+        async userSearchEnter(e) {
             if (e.target.value === "") {
                 this.$refs.showTip.resetTips();
             } else {
-                this.$api.user.showUserLike(e.target.value).then((res) => {
-                    this.$refs.showTip.showTipsByUsers(res.data);
-                });
+                let response = await this.$api.user.showUserLike(e.target.value);
+                await this.$refs.showTip.showTipsByUsers(response.data);
             }
         },
-        countrySearchEnter: function (e) {
+        async countrySearchEnter(e) {
             if (e.target.value === "") {
                 this.$refs.showTip.resetTips();
             } else {
-                this.$api.country.showCountryLike(e.target.value).then((res) => {
-                    console.log(res.data);
-                    this.$refs.showTip.showTipsByCountries(res.data);
-                });
+                let response = await this.$api.country.showCountryLike(e.target.value);
+                console.log(response);
+                await this.$refs.showTip.showTipsByCountries(response.data);
             }
         },
-        siteSearchEnter: function (e) {
+        async siteSearchEnter(e) {
             if (e.target.value === "") {
                 this.$refs.showTip.resetTips();
             } else {
-                this.$api.site.showSiteLike(e.target.value).then((res) => {
-                    console.log(res.data);
-                    this.$refs.showTip.showTipsBySites(res.data);
-                });
+                let response = await this.$api.site.showSiteLike(e.target.value);
+                await this.$refs.showTip.showTipsBySites(response.data);
             }
         },
     }

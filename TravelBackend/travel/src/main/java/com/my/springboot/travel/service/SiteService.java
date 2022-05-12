@@ -16,12 +16,24 @@ public class SiteService {
 
     public List<Site> findBySiteNameLike(String SiteName) {
 
-        return siteDao.findBySiteNameLike("%"+SiteName+"%");
+        return siteDao.findBySiteNameLike("%" + SiteName + "%");
 
     }
 
+
+    public Site findBySiteName(String siteName) {
+
+        return siteDao.findBySiteName(siteName);
+
+    }
 
     public List<Site> findAll() {
+
         return siteDao.findAll();
     }
+
+    public Site findBySiteId(int siteId){
+        return siteDao.findBySiteId(siteId);
+    }
+
 }

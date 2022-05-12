@@ -1,6 +1,7 @@
 package com.my.springboot.travel.controller;
 
 import com.my.springboot.travel.dao.CountryDao;
+import com.my.springboot.travel.entity.City;
 import com.my.springboot.travel.entity.Country;
 import com.my.springboot.travel.model.CountryDTO;
 import com.my.springboot.travel.service.CountryService;
@@ -35,11 +36,21 @@ public class CountryController {
         return ResponseEntity.ok(countryDTOList);
     }
 
+    @GetMapping("/country/list/countryname")
+    public ResponseEntity<?> showCountryNameList() {
+        List<Country> countryList = countryService.findAll();
+        List<String> countryNameList = new ArrayList<>();
+        for (int i = 0; i < countryList.size(); i++) {
+            countryNameList.add(countryList.get(i).getCountryName());
+        }
+        return ResponseEntity.ok(countryNameList);
+    }
+
     @GetMapping("/country/getcountrylike/{countryName}")
-    public ResponseEntity<?> getCountry(@PathVariable String countryName) {
+    public ResponseEntity<?> getCountryListByCountryName(@PathVariable String countryName) {
         List<Country> countryList = countryService.findByCountryNameLike(countryName);
         List<CountryDTO> countryDTOList = new ArrayList<>();
-        if (countryList.size()==0) {
+        if (countryList.size() == 0) {
             return ResponseEntity.ok(0);
         } else {
             if (countryList.size() > 0) {
@@ -51,6 +62,22 @@ public class CountryController {
             }
         }
         return ResponseEntity.ok(countryDTOList);
+    }
+
+    @GetMapping("/country/getcountryid/{countryName}")
+    public ResponseEntity<?> getCountryIdByCountryName(@PathVariable String countryName) {
+        Country newCountry = countryService.findByCountryName(countryName);
+        CountryDTO countryDTO = newCountry.toCountryDTO();
+        countryDTO.setCode(1);
+        return ResponseEntity.ok(newCountry.getCountryId());
+    }
+
+    @GetMapping("/country/getcountryname/{countryId}")
+    public ResponseEntity<?> getCountryNameByCountryId(@PathVariable int countryId) {
+        Country newCountry = countryService.findByCountryId(countryId);
+        CountryDTO countryDTO = newCountry.toCountryDTO();
+        countryDTO.setCode(1);
+        return ResponseEntity.ok(newCountry.getCountryName());
     }
 
 

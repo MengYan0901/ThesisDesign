@@ -8,5 +8,8 @@ import java.util.List;
 
 @Repository
 public interface CountryDao extends JpaRepository<Country,Integer> {
+
     List<Country> findByCountryNameLike(String countryName);
+    Country findByCountryId(int countryId);
+    Country findByCountryName(String countryName);
 }

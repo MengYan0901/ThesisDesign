@@ -11,6 +11,7 @@ import java.util.List;
 public interface UserDao extends JpaRepository<DAOUser, Integer> {
     DAOUser findByUserName(String userName);
     List<DAOUser> findByUserNameLike(String userName);
+    DAOUser findByUserId(int userId);
 }
 
 
